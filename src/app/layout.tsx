@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Josefin_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const JosefinSans = Josefin_Sans({
   subsets: ["latin"],
+  variable: "--font-sans",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const PlayfairDisplay = Playfair_Display({
   subsets: ["latin"],
+  variable: "--font-heading",
 });
 
 export const metadata: Metadata = {
@@ -21,9 +24,22 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={cn(
+        "h-full",
+        "antialiased",
+        JosefinSans.variable,
+        PlayfairDisplay.variable,
+        JosefinSans.className,
+        "font-sans"
+      )}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col" cz-shortcut-listen="true">
+        <Header></Header>
+        <main>
+          {children}
+        </main>
+        <Footer></Footer>
+        </body>
     </html>
   );
 }
